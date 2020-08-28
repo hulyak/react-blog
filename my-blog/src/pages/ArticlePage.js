@@ -11,8 +11,16 @@ const ArticlePage = ({match}) => {
 
   //runs when the component runs, for fetching data and setting the state
   //runs also when the component updates
-  useEffect(() => {
-    setArticleInfo({upvotes : Math.ceil(Math.random() * 10)});
+  useEffect( () => {
+    const fetchData = async() => {
+      // connect to backend
+      const result = await fetch(`/api/articles/${name}`);  //proxy
+      const body = await result.json();
+      console.log(body)
+      setArticleInfo(body);
+    }
+    fetchData();
+    // setArticleInfo({upvotes : Math.ceil(Math.random() * 10)});
   }, [name]);  //update when the article changes 
 
   if(!article) return <NotFoundPage />
@@ -34,3 +42,6 @@ const ArticlePage = ({match}) => {
   
 
 export default ArticlePage;
+
+
+// cors policy error solution : add proxy in package.json to connect to the backend localhost
