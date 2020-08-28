@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import ArticleList from '../components/ArticleList';
 import CommentsList from '../components/CommentsList';
+import UpvoteSection from '../components/UpvoteSection';
+import AddCommentForm from '../components/AddCommentForm';
 import articleContent from './article-content';
 import NotFoundPage from './NotFoundPage';
-import UpvoteSection from '../components/UpvoteSection';
 
 const ArticlePage = ({match}) => {
   const name = match.params.name;  //route params for each article
@@ -35,8 +36,9 @@ const ArticlePage = ({match}) => {
       {article.content.map((paragraph,key) => (
         <p key={key}>{paragraph}</p>
       ))}
+      <CommentsList comments={articleInfo.comments}  />
+      <AddCommentForm articleName={name} setArticleInfo={setArticleInfo}/>
       <h3>Other Articles: </h3>
-      <CommentsList comments={articleInfo.comments} />
       <ArticleList articles={otherArticles} />
     </>
   )
