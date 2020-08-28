@@ -10,9 +10,10 @@ const ArticlePage = ({match}) => {
   const [articleInfo , setArticleInfo] = useState({upvotes : 0 , comments : []});
 
   //runs when the component runs, for fetching data and setting the state
+  //runs also when the component updates
   useEffect(() => {
-    setArticleInfo({upvotes : 3});
-  }, []);
+    setArticleInfo({upvotes : Math.ceil(Math.random() * 10)});
+  }, [name]);  //update when the article changes 
 
   if(!article) return <NotFoundPage />
 
