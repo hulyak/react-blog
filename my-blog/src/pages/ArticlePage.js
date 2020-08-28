@@ -3,6 +3,7 @@ import ArticleList from '../components/ArticleList';
 import CommentsList from '../components/CommentsList';
 import articleContent from './article-content';
 import NotFoundPage from './NotFoundPage';
+import UpvoteSection from '../components/UpvoteSection';
 
 const ArticlePage = ({match}) => {
   const name = match.params.name;  //route params for each article
@@ -17,7 +18,6 @@ const ArticlePage = ({match}) => {
       // connect to backend
       const result = await fetch(`/api/articles/${name}`);  //proxy
       const body = await result.json();
-      console.log(body)
       setArticleInfo(body);
     }
     fetchData();
@@ -31,7 +31,7 @@ const ArticlePage = ({match}) => {
   return (
     <>
       <h1> {article.title}</h1>
-      <p>This post has been upvoted {articleInfo.upvotes} times</p>
+      <UpvoteSection  articleName={name} upvotes={articleInfo.upvotes} setArticleInfo={setArticleInfo} />
       {article.content.map((paragraph,key) => (
         <p key={key}>{paragraph}</p>
       ))}
