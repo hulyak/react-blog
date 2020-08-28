@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import ArticleList from '../components/ArticleList';
+import CommentsList from '../components/CommentsList';
 import articleContent from './article-content';
 import NotFoundPage from './NotFoundPage';
 
@@ -35,6 +36,7 @@ const ArticlePage = ({match}) => {
         <p key={key}>{paragraph}</p>
       ))}
       <h3>Other Articles: </h3>
+      <CommentsList comments={articleInfo.comments} />
       <ArticleList articles={otherArticles} />
     </>
   )
