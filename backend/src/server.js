@@ -2,6 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 // connect to local database
 import { MongoClient } from 'mongodb';
+import path from 'path';
+
+const app = express();
+// frontend build code
+app.use(express.static(path.join(__dirname, '/build')));
+app.use(bodyParser.json());
  
 // const articlesInfo = {
 //   'learn-react': {
@@ -18,9 +24,7 @@ import { MongoClient } from 'mongodb';
 //   },
 // }
 
-const app = express();
 
-app.use(bodyParser.json());
 
 //mongo config
 const withDB = async(operations, res) => {
@@ -87,6 +91,11 @@ app.post("/api/articles/:name/add-comment" , (req, res) => {
     }, res);
   //  articlesInfo[articleName].comments.push({username , text});
   //  res.status(200).send(articlesInfo[articleName]);
+});
+
+//pass the pages other than requests
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/build/index.html'));
 });
 
 app.listen(8000, () => console.log('listening on port 8000'))
